@@ -5,19 +5,12 @@ export function LabelsCard({ label }) {
 
   return (
     <div
-      style={{
-        background: "#101010",
-        padding: "1rem",
-        marginBottom: "1rem",
-        borderRadius: "8px",
-        cursor: "pointer",
-        color: "#fff",
-      }}
       onClick={() => {
         navigate(`/labels/${label.id}`);
       }}
+      className="border-1 border-black-500 p-2 flex flex-col justify-center items-center m-2 tracking-widest cursor-pointer w-200 rounded-xl"
     >
-      <h2>{label.nombre}</h2>
+      <h2><strong>Nombre:</strong>{label.nombre}</h2>
       <p><strong>ID:</strong> {label.id}</p>
       <p><strong>Email:</strong> {label.email}</p>
       <p><strong>Estado:</strong> {label.estado}</p>
@@ -26,20 +19,21 @@ export function LabelsCard({ label }) {
       <p><strong>Ancho:</strong> {label.ancho} cm</p>
       <p><strong>Descripción:</strong> {label.descripcion}</p>
       <p><strong>Fecha pedido:</strong> {new Date(label.fecha_pedido).toLocaleString()}</p>
-
       {label.imagen && (
-        <div style={{ marginTop: "1rem" }}>
-          <strong>Imagen:</strong>
-          <br />
-          <img
-            src={`http://localhost:8000${label.imagen}`}
-            alt="Etiqueta"
-            style={{ maxWidth: "100%", height: "auto", marginTop: "0.5rem", borderRadius: "4px" }}
-          />
-        </div>
-      )}
+  <p>
+    <strong>Imagen:</strong>{" "}
+    <a
+      href={label.imagen}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-600 underline hover:text-blue-800"
+      onClick={(e) => e.stopPropagation()}
+    >
+      Ver imagen
+    </a>
+  </p>
+)}
 
-      <hr style={{ marginTop: "1rem", borderColor: "#444" }} />
     </div>
   );
 }

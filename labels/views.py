@@ -6,4 +6,4 @@ from .models import Label
 
 class label_view(viewsets.ModelViewSet):
   serializer_class = labelSerializers
-  queryset = Label.objects.all()
+  queryset = Label.objects.all().order_by('-fecha_pedido')
