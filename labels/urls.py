@@ -2,9 +2,10 @@ from django.urls import path, include
 from rest_framework import routers
 from . import views
 
+
 router = routers.DefaultRouter()
-router.register(r'labels', views.label_view, 'labels')
+router.register(r'labels', views.LabelView, 'labels')
 
 urlpatterns = [
-  path('api/v1/', include(router.urls))
+  path('', include(router.urls))
 ]
