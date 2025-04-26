@@ -62,7 +62,7 @@ ROOT_URLCONF = 'crud_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -163,6 +163,8 @@ SIMPLE_JWT = {
 }
 
 # service email
+
+ADMIN_EMAIL = 'matias.cataldo06@inacapmail.cl'
 
 DEFAULT_FROM_EMAIL = 'm.cataldoolate@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

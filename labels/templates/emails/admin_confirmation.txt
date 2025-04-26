@@ -1,0 +1,25 @@
+📬 Nuevo pedido recibido
+
+Detalles del pedido:
+---------------------
+
+🆔 ID: {{ label.id }}
+📅 Fecha del pedido: {{ label.fecha_pedido }}
+
+👤 Nombre del cliente: {{ label.nombre }}
+📧 Email de contacto: {{ label.email }}
+
+📏 Dimensiones:
+   - Altura: {{ label.altura }} cm
+   - Ancho: {{ label.ancho }} cm
+
+🔵 Forma: {{ label.forma }}
+📌 Estado: {{ label.estado }}
+
+📝 Descripción:
+{{ label.descripcion }}
+
+🖼 Imagen subida: {{ label.imagen.url }}
+
+---------------------
+Puedes revisar este pedido en el panel de administración.

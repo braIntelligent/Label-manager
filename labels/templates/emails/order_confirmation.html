@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <p>Hola {{ label.nombre }},</p>
+  
+  <p>Gracias por tu pedido de etiquetas. Aquí están los detalles:</p>
+  
+  <ul>
+    <li><strong>Número de pedido:</strong> #{{ label.id }}</li>
+    <li><strong>Dimensiones:</strong> {{ label.altura }}cm x {{ label.ancho }}cm</li>
+    <li><strong>Forma:</strong> {{ label.get_forma_display }}</li>
+    <li><strong>Estado actual:</strong> {{ label.get_estado_display }}</li>
+    <li><strong>Descripcion:</strong> {{ label.descripcion }}</li>
+  </ul>
+  
+  <p>Estaremos en contacto pronto con las actualizaciones.</p>
+  
+  <p>Saludos,<br>El equipo de diseño</p>
+</body>
+</html>

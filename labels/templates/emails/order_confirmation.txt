@@ -1,0 +1,13 @@
+Hola {{ label.nombre }},
+
+Gracias por tu pedido de etiquetas. Aquí están los detalles:
+
+Número de pedido: #{{ label.id }}
+Dimensiones: {{ label.altura }}cm x {{ label.ancho }}cm
+Forma: {{ label.get_forma_display }}
+Estado actual: {{ label.get_estado_display }}
+
+Estaremos en contacto pronto con las actualizaciones.
+
+Saludos,
+El equipo de diseño

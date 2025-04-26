@@ -8,6 +8,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializer import LabelSerializers
 from .models import Label
 from rest_framework.parsers import MultiPartParser, FormParser
+from django.conf import settings
+from django.template.loader import render_to_string
 
 
 class LabelView(viewsets.ModelViewSet):
@@ -23,16 +25,48 @@ class LabelView(viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
 
-# endpoint Email
-class EmailApiView(APIView):
-    def post(self, request):
+        label = serializer.instance
+
         try:
-            to_email = "matias.cataldo@correoaiep.cl"
-            subject = "Mensaje de prueba"
-            message = "Este es un mensaje de prueba desde DRF"
-            send_mail(subject, message, None, [to_email])
-            return Response({'message': 'Correo enviado con exito.'}, status=status.HTTP_200_OK)
+            self.send_confirmation_email(label)
+            self.send_admin_notification(label)
         except Exception as e:
-            error_message = str(e)
-            return Response({'message': error_message}, status=status.HTTP_400_BAD_REQUEST)
+            print(f"Error enviando emails: {str(e)}")
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def send_confirmation_email(self, label):
+        subject = f"Confirmación de tu pedido #{label.id}"
+        message = render_to_string('emails/order_confirmation.txt', {
+            'label': label,
+        })
+        html_message = render_to_string('emails/order_confirmation.html', {
+            'label': label,
+        })
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [label.email],
+            html_message=html_message,
+            fail_silently=False,
+        )
+
+    def send_admin_notification(self, label):
+        subject = f"Nuevo pedido recibido (#{label.id})"
+        message = render_to_string('emails/admin_confirmation.txt', {
+            'label': label,
+        })
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.ADMIN_EMAIL], 
+            fail_silently=False,
+        )
