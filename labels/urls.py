@@ -10,10 +10,3 @@ urlpatterns = [
   path('', include(router.urls))
 ]
 
-from django.conf.urls import handler404
-from django.shortcuts import render
-
-def frontend(request, exception=None):
-    return render(request, 'index.html')
-
-handler404 = frontend
