@@ -1,6 +1,6 @@
 from django.db import models
 
-class Label(models.Model):  # Renombré la clase a singular y con mayúscula por convención PEP8
+class Label(models.Model): 
     FORMAS = [
         ("circulo", "Círculo"),
         ("cuadrada", "Cuadrada"),
@@ -25,8 +25,8 @@ class Label(models.Model):  # Renombré la clase a singular y con mayúscula por
     forma = models.CharField(max_length=30, choices=FORMAS)
     estado = models.CharField(max_length=20, choices=ESTADOS, default="pendiente")
     fecha_pedido = models.DateTimeField(auto_now_add=True)
-    imagen = models.ImageField(upload_to="labels_images/", null=True, blank=True)
-    descripcion = models.TextField(blank=True)
+    imagen = models.ImageField(upload_to="labels_images/", null=False, blank=False)
+    descripcion = models.TextField(blank=False)
 
     def __str__(self):
         return f"Etiqueta de {self.nombre} - {self.forma} ({self.altura}x{self.ancho}) {self.estado}"
