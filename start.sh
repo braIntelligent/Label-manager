@@ -5,8 +5,10 @@ set -e
 
 echo "🚀 Aplicando migraciones de Django..."
 python manage.py makemigrations
+python manage.py makemigrations labels
 
 python manage.py migrate 
+python manage.py migrate labels
 
 python manage.py shell << EOF
 from django.contrib.auth.models import User
