@@ -10,7 +10,7 @@ from .models import Label
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.conf import settings
 from django.template.loader import render_to_string
-
+from django.views.generic import TemplateView
 
 class LabelView(viewsets.ModelViewSet):
     queryset = Label.objects.all().order_by('-fecha_pedido')
@@ -67,6 +67,12 @@ class LabelView(viewsets.ModelViewSet):
             subject,
             message,
             settings.DEFAULT_FROM_EMAIL,
-            [settings.ADMIN_EMAIL], 
+            [settings.ADMIN_EMAIL],
             fail_silently=False,
         )
+
+class FrontendAppView(TemplateView):
+    template_name = 'index.html'
+
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)

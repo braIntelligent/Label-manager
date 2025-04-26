@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenBlacklistView,
 )
-# from labels.views import EmailApiView
+from labels.views import FrontendAppView
 
 urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -15,7 +15,7 @@ urlpatterns = [
     path('api/token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
     path('admin/', admin.site.urls),
     path('api/', include('labels.urls')),
-    # path('send-email/', EmailApiView.as_view(), name='send-mail'),
+    path('', FrontendAppView.as_view(), name='home'),
 ]
 
 
