@@ -4,12 +4,15 @@
 set -e
 
 echo "🚀 Aplicando migraciones de Django..."
-python manage.py migrate 
-python manage.py migrate labels
 python manage.py makemigrations
-python manage.py makemigrations labels
 
-python manage.py createsuperuser
+python manage.py migrate 
+
+python manage.py shell << EOF
+from django.contrib.auth.models import User
+User.objects.create_superuser('admin', '', 'password123')
+EOF
+
 
 
 echo "🚀 Iniciando servidor con gunicorn..."
