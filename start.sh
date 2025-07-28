@@ -12,9 +12,9 @@ python manage.py migrate labels
 
 python manage.py shell << EOF
 from django.contrib.auth.models import User
-User.objects.create_superuser('admin', '', 'password123')
+if not User.objects.filter(username='admin').exists():
+    User.objects.create_superuser('admin', '', 'password123')
 EOF
-
 
 
 echo "🚀 Iniciando servidor con gunicorn..."
